@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2048</title>
+    <link rel="icon" href="Images/icon.png">
+    <link rel="stylesheet" href="sourse/css/game.css">
+    <link rel="stylesheet" href="sourse/css/lib/reset.css">
+</head>
+
+<body>
+    <section>
+        <div>
+            <h1>SCORE : <span id="score"></span></h1>
+            <canvas id="main_canvas" width="400" height="400"> </canvas>	
+
+            <div class="Navigation_input">
+                <input onclick="ChangeDifficulty('hard')" value="hard" type="button">
+                <input onclick="ChangeDifficulty('easy')" value="easy" type="button">
+            
+                <input onclick="NewGame()" name="reset" value="reset" type="button">
+            </div>
+
+            <div id="pWindow" style="display: none;" class="WinWindow">
+                <span>
+                    <h2>Вы выиграли!</h2>
+                </span>
+                <span>
+                    <input  onclick="CloseWindow()" name="close" value="x" type="button">
+                </span>
+            </div>    
+
+        </div>
+
+    </section>
+
+    <script src="sourse/js/main.js"></script>
+    <script src="sourse/js/ivents.js"></script>
+</body>
+
+</html>
