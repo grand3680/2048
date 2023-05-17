@@ -40,13 +40,12 @@ function CheckDead() {
         // if the variable is greater than or equal to the area of the playing field
         if (iterItem >= n * n) {
             // then it displays the message you have lost
-            alert("Вы проиграли");
+            alert("You lost.");
         }
     }    
 }
 
 let flag_Win = false;
-
 
 function CloseWindow() {
     document.getElementById("pWindow").style.display = "none";
@@ -57,7 +56,7 @@ function CheckWin() {
     // loop that goes through the entire list
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
-            // если mas_2[i][j] равно 2048 ( то победа )
+            // if mas_2[i][j] is 2048 ( then win)
             if (mas_2[i][j] == 2048) {
                 if (flag_Win == false) {
                     flag_Win = true;
@@ -129,11 +128,11 @@ function NewGame() {
 
 
 function drawField() {
-    // вывод score
+    // output score
     document.getElementById("score").textContent = score;
 
     // clearing fields
-	ctx.clearRect(0, 0, canvas_width, canvas_width);
+    ctx.clearRect(0, 0, canvas_width, canvas_width);
     // loop through each value of the two-dimensional array
     // width
 	for (var i = 0; i < n; i++) {
