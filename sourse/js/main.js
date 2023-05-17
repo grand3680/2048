@@ -5,13 +5,13 @@ var mas = [];
 var mas_2 = [];
 var count = 0;
 var timer;
-// переменные размера
+// size variables
 var n = 8;  
 var canvas_width = 400;
 var size = canvas_width / n;
 var score = 0;
 
-//создаём пустой массив, так-как размеры Canvas 400x400 1 клетка 50 всего 8
+//create an empty array, because the dimensions of Canvas 400x400 1 cell 50 total 8
 function goGame() {
     for (let i = 0; i < n; i++) {
         mas[i] = [];
@@ -23,23 +23,23 @@ function goGame() {
     }
 }
 
-// проверка проигрыша игрока
+// Check a player's loss
 function CheckDead() {
-    // переменная сумма всех заполенных клеток
+    // variable sum of all filled cells
     let iterItem = 0;
 
-    // цикл который перебирает весь список
+    // loop that goes through the entire list
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
-            // если mas[i][j] равно 1 ( Заполненная клетка )
+            // если mas[i][j] равно 1 ( Filled cell )
             if (mas[i][j] == 1) {
-                // то переменная плюс 1
+                // then the variable plus 1
                 iterItem += 1;
             }
         }
-        // если перменая больше или равно площадь игрового поля
+        // if the variable is greater than or equal to the area of the playing field
         if (iterItem >= n * n) {
-            // то выводиться надпись вы проиграли
+            // then it displays the message you have lost
             alert("Вы проиграли");
         }
     }    
@@ -52,9 +52,9 @@ function CloseWindow() {
     document.getElementById("pWindow").style.display = "none";
 }
 
-// проверка выигрыша игрока
+// player winnings check
 function CheckWin() {
-    // цикл который перебирает весь список
+    // loop that goes through the entire list
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
             // если mas_2[i][j] равно 2048 ( то победа )
@@ -70,7 +70,7 @@ function CheckWin() {
 }
 
 
-// рандомные числа
+// random numbers
 function randomNumbers(){
     let x = Math.floor((Math.random() * n)); 
     let y = Math.floor((Math.random() * n)); 
@@ -91,18 +91,18 @@ function randomNumbers(){
 }
 
 
-// настройка сложности
+// complexity adjustment
 function ChangeDifficulty(i) {
-    // переменая сколько рандомных чисел с начало игры
+    // changing how many random numbers from the beginning of the game
     let x;
     
-    // если переданная строка i равно hard
+    // if the passed string i equals hard
     if (i == "hard") {
         n = 8;
         x = 10;
     }
 
-    // если переданная строка i равно easy
+    // if the passed string i is equal to easy
     if (i == "easy") {
         n = 4;
         x = 1;
@@ -118,7 +118,7 @@ function ChangeDifficulty(i) {
 }
 
 
-// очищаем поля 
+// clearing fields 
 function NewGame() {
     mas = [];
     mas_2 = [];
@@ -132,22 +132,22 @@ function drawField() {
     // вывод score
     document.getElementById("score").textContent = score;
 
-    // очищаем поля
+    // clearing fields
 	ctx.clearRect(0, 0, canvas_width, canvas_width);
-    // перебираем каждое значение двумерного массивва
-    // ширина
+    // loop through each value of the two-dimensional array
+    // width
 	for (var i = 0; i < n; i++) {
-        // высота
+        // height
 		for (var j = 0; j < n; j++) {
-            // если число в списке с клетками равно 1 то продолжаем
+            // If the number in the list of cells is 1, then continue
             if (mas[i][j] == 1) {
-                // если число в списке с числами не равно 0
+                // if the number in the list with numbers is not 0
                 if (mas_2[i][j] != 0) {
 
-                    // начинаем заполнять
+                    // start filling in
                     ctx.beginPath();
 
-                    // задаём цвет
+                    // color
                     if (mas_2[i][j] == 1) {ctx.fillStyle = "#EDE0C8";}
                     if (mas_2[i][j] == 2) {ctx.fillStyle = "#EEE4DA";}
                     if (mas_2[i][j] == 4) {ctx.fillStyle =  "#EDE0C8";}
@@ -157,22 +157,22 @@ function drawField() {
                     if (mas_2[i][j] >= 64) {ctx.fillStyle =  "#F65E3B";}
                     if (mas_2[i][j] == 2048) {ctx.fillStyle =  "gold";}
 
-                    // рисуем этот квадрат
+                    // draw this square
                     ctx.fillRect(j * size, i * size, size - 2.5, size - 2.5);
                     ctx.closePath();
 
-                    // начинаем заполнять
+                    // start filling in
                     ctx.beginPath();
 
-                    // задём цвет   
+                    // hind color   
                     if (mas_2[i][j] < 16) {ctx.fillStyle =  "#806441";}
                     if (mas_2[i][j] == 8) {ctx.fillStyle = "white"}
                     if (mas_2[i][j] >= 16) {ctx.fillStyle =  "white";}     
                         
 
-                    // если количество клеток меньше 8 то шрифт 30px
+                    // if the number of cells is less than 8, then the font is 30px
                     if (n < 8) {ctx.font = "30px Verdana";} 
-                    // если количество клеток 8 то шрифт 20px
+                    // if the number of cells is 8, then the font is 20px
                     if (n >= 8) {ctx.font = "20px Verdana";} 
 
                     ctx.textAlign = "center";
@@ -195,11 +195,11 @@ function drawField() {
 
 
 function ArrowUp(i, j) {
-    // проверка на ошибку, если ошибка то ломаем цикл
+    // check for an error, if there is an error, then break the loop
     try {if (mas[i - 1][j] < n) {}
     } catch(e){return;}
 
-    // проверка если клетка пустая то поставим туда значение
+    // check if the cell is empty, then put a value there
     if (mas[i - 1][j] === 0) {
         mas[i][j] = 0;
         mas[i - 1][j] = 1;
@@ -208,10 +208,10 @@ function ArrowUp(i, j) {
         mas_2[i][j] = 0;
     
     } else {
-        // проверка если два нуля то не интересует
+        // Check if there are two zeros, not interested
         if (mas_2[i - 1][j] == 0 && mas_2[i][j] == 0) {return;}
         
-        // складываю числа если они равны между собой
+        // I add numbers if they are equal to each other
         if (mas_2[i][j] == mas_2[i - 1][j]) {
             mas[i][j] = 0;
             
@@ -225,11 +225,11 @@ function ArrowUp(i, j) {
 
 
 function ArrowDown(i, j) {
-    // проверка на ошибку, если ошибка то ломаем цикл
+    // check for an error, if there is an error, then break the loop
     try {if (mas[i + 1][j] < n) {}
     } catch(e){return;}
 
-    // проверка если клетка пустая то поставим туда значение
+    // check if the cell is empty, then put a value there
     if (mas[i + 1][j] === 0) {
         mas[i][j] = 0;
         mas[i + 1][j] = 1;
@@ -238,10 +238,10 @@ function ArrowDown(i, j) {
         mas_2[i][j] = 0;
     
     } else {
-        // проверка если два нуля то не интересует
+        // Check if there are two zeros, not interested
         if (mas_2[i + 1][j] == 0 && mas_2[i][j] == 0) {return;}
         
-        // складываю числа если они равны между собой
+        // I add numbers if they are equal to each other
         if (mas_2[i][j] == mas_2[i + 1][j]) {
             mas[i][j] = 0;
             
@@ -255,11 +255,11 @@ function ArrowDown(i, j) {
 
 
 function ArrowRight(i, j) {
-    // проверка на ошибку, если ошибка то ломаем цикл
+    // check for an error, if there is an error, then break the loop
     try {if (mas[i][j + 1] < n) {}
     }catch(e){return;}
 
-    // проверка если клетка пустая то поставим туда значение
+    // check if the cell is empty, then put a value there
     if (mas[i][j + 1] === 0) {
         mas[i][j] = 0;
         mas[i][j + 1] = 1;
@@ -268,10 +268,10 @@ function ArrowRight(i, j) {
         mas_2[i][j] = 0;
     
     } else {
-        // проверка если два нуля то не интересует
+        // Check if there are two zeros, not interested
         if (mas_2[i][j + 1] == 0 && mas_2[i][j] == 0) {return;}
         
-        // складываю числа если они равны между собой
+        // I add numbers if they are equal to each other
         if (mas_2[i][j] == mas_2[i][j + 1]) {
             mas[i][j] = 0;
             
@@ -285,11 +285,11 @@ function ArrowRight(i, j) {
 
 
 function ArrowLeft(i, j) {
-    // проверка на ошибку, если ошибка то ломаем цикл
+    // check for an error, if there is an error, then break the loop
     try {if (mas[i][j - 1] < n) {}
     } catch(e){return;}         
 
-    // проверка если клетка пустая то поставим туда значение
+    // check if the cell is empty, then put a value there
     if (mas[i][j - 1] === 0) {
         mas[i][j] = 0;
         mas[i][j - 1] = 1;
@@ -298,10 +298,10 @@ function ArrowLeft(i, j) {
         mas_2[i][j] = 0;
     
     } else {
-        // проверка если два нуля то не интересует
+        // Check if there are two zeros, not interested
         if (mas_2[i][j - 1] == 0 && mas_2[i][j] == 0) {return;}
         
-        // складываю числа если они равны между собой
+        // I add numbers if they are equal to each other
         if (mas_2[i][j] == mas_2[i][j - 1]) {
             mas[i][j] = 0;
             
@@ -320,25 +320,25 @@ document.body.addEventListener("keydown", function(event) {
 
         for (var i = 0; i < n; i++) {
             for (var j = 0; j < n; j++) {
-                // Логика        
+                // Logic        
                 if (mas[i][j] == 1) {
                     if (mas_2[i][j] != 0) {
-                        // ивент нажатие на клавищу стрелка верх
+                        // Event by pressing the up arrow key
                         if (event.key == "ArrowUp") {
                             ArrowUp(i, j);
                         }
 
-                        // ивент нажатие на клавищу стрелка вниз
+                        // Event by pressing the down arrow key
                         if (event.key == "ArrowDown") {
                             ArrowDown(i, j);
                         }
 
-                        // ивент нажатие на клавищу стрелка влево
+                        // Event by pressing the left arrow key
                         if (event.key == "ArrowRight") {
                             ArrowRight(i, j);
                         }
 
-                        // ивент нажатие на клавищу стрелка влево
+                        // Event by pressing the left arrow key
                         if (event.key == "ArrowLeft") {
                             ArrowLeft(i, j);
 
